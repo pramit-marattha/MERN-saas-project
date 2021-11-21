@@ -14,7 +14,7 @@ function App() {
       <Router>
         <Navbar />
         <br />
-        <Routes>
+      <Routes>
           <Route path="/" exact component={MealsList} />
           <Route path="/edit/:id" component={EditMeal} />
           <Route path="/create" component={CreateMeal} />

@@ -4,19 +4,19 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <nav
-      class="navbar navbar-expand-lg navbar-light  static-top mb-0 shadow"
+      className="navbar navbar-expand-lg navbar-light  static-top mb-0 shadow"
       style={{ backgroundColor: "#8661d1" }}
     >
-      <div class="container">
+      <div className="container">
         <img
-          alt=""
-          src="../../Assets/logo.png"
-          width="60"
-          height="60"
+          alt="Calorie Journal Logo"
+          src="https://user-images.githubusercontent.com/37651620/142762093-45207811-0c6e-4b62-9cb2-8d0009efb4ea.png"
+          width="70"
+          height="70"
           className="d-inline-block align-top"
         />
-        <a class="navbar-brand">
           <Link
+          className="navbar-brand"
             to="/"
             className="navbar-brand"
             style={{
@@ -28,13 +28,12 @@ const Navbar = () => {
           >
             Calorie Journal
           </Link>
-        </a>
 
-        <div class="collapse navbar-collapse">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link">
+        <div className="collapse navbar-collapse">
+          <ul className="navbar-nav ml-auto">
+            <li className="nav-item">
                 <Link
+                className="nav-link"
                   to="/"
                   className="nav-link"
                   style={{
@@ -42,13 +41,12 @@ const Navbar = () => {
                     color: "white",
                   }}
                 >
-                  Meal Logs
+                  Calorie Info
                 </Link>
-              </a>
             </li>
-            <li class="nav-item active">
-              <a class="nav-link">
+            <li className="nav-item active">
                 <Link
+                className="nav-link"
                   to="/create"
                   className="nav-link"
                   style={{
@@ -56,13 +54,12 @@ const Navbar = () => {
                     color: "white",
                   }}
                 >
-                  New Meal
+                  Add Food details
                 </Link>
-              </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link">
+            <li className="nav-item">
                 <Link
+                className="nav-link"
                   to="/user"
                   className="nav-link"
                   style={{
@@ -72,7 +69,6 @@ const Navbar = () => {
                 >
                   New User
                 </Link>
-              </a>
             </li>
           </ul>
         </div>
