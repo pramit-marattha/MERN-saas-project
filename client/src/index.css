@@ -4,6 +4,8 @@ body {
   margin: 0;
   font-family: 'Fredoka One', cursive;
   font-family: 'Poppins', sans-serif;
+  background-image: linear-gradient(to right,#00cfde , #05a660);
+
 }
 
 code {

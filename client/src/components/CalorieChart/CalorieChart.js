@@ -1,23 +1,33 @@
-/** @format */
-
 import React, { useEffect, useState } from "react";
-import { Bar,Pie } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import axios from "axios";
+
+const Delayed = ({ children, waitBeforeShow = 4500 }) => {
+  const [isShown, setIsShown] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsShown(true);
+    }, waitBeforeShow);
+  }, [waitBeforeShow]);
+
+  return isShown ? children : null;
+};
 
 const CalorieChart = () => {
   const [chartData, setChartData] = useState({});
 
-  const chart = () => {
+  async function getData() {
     let foodCal = [];
     let caloriesCal = [];
-    axios
+    await axios
       .get("http://localhost:5000/calorie/")
       .then((res) => {
         console.log(res);
         for (let dataObj of res.data) {
           foodCal.push(dataObj.description);
           caloriesCal.push(parseInt(dataObj.caloriesCal));
-          console.log(foodCal, caloriesCal);
+          console.log("foodCal, caloriesCal",foodCal, caloriesCal);
         }
         setChartData({
           labels: foodCal,
@@ -26,13 +36,13 @@ const CalorieChart = () => {
               label: "Cal",
               data: caloriesCal,
               backgroundColor: [
-                "rgba(255, 99, 132, 0.6)",
-                "rgba(54, 162, 235, 0.6)",
-                "rgba(255, 206, 86, 0.6)",
-                "rgba(75, 192, 192, 0.6)",
-                "rgba(153, 102, 255, 0.6)",
-                "rgba(255, 159, 64, 0.6)",
-                "rgba(255, 99, 132, 0.6)",
+                "#f42f42",
+                "#5ab950",
+                "#fe812a",
+                "#ffc748",
+                "#6b71c7",
+                "#8661d1",
+                "#8a2cba"
               ],
             },
           ],
@@ -44,12 +54,13 @@ const CalorieChart = () => {
   };
 
   useEffect(() => {
-    chart();
+    getData();
   }, []);
 
   return (
     <div className="App">
-      <h4>Food Analytics</h4>
+    
+      <h4>Food</h4>
 
       <h5
         style={{
@@ -62,6 +73,7 @@ const CalorieChart = () => {
         Calorie Intake per each Food
       </h5>
       <div>
+      <Delayed>
         <Bar
           data={chartData}
           options={{
@@ -79,19 +91,22 @@ const CalorieChart = () => {
                     maxTicksLimit: 10,
                     beginAtZero: true,
                   },
-                  gridLines: {},
+                  gridLines: {
+                    // display: true,
+                  },
                 },
               ],
               xAxes: [
                 {
                   gridLines: {
-                    display: false,
+                    display: true,
                   },
                 },
               ],
             },
           }}
         />
+        </Delayed>
       </div>
     </div>
   );

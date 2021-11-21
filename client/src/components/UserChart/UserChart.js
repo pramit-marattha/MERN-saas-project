@@ -1,16 +1,27 @@
-/** @format */
-
 import React, { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
 import axios from "axios";
 
+const Delayed = ({ children, waitBeforeShow = 4500 }) => {
+  const [isShown, setIsShown] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsShown(true);
+    }, waitBeforeShow);
+  }, [waitBeforeShow]);
+
+  return isShown ? children : null;
+};
+
+
 const UserChart = () => {
   const [chartData, setChartData] = useState({});
 
-  const chart = () => {
+  async function getData() {
     let username = [];
     let calories = [];
-    axios
+    await axios
       .get("http://localhost:5000/calorie/")
       .then((res) => {
         console.log(res);
@@ -26,15 +37,26 @@ const UserChart = () => {
               label: "Calories",
               data: calories,
               backgroundColor: [
-                "rgba(255, 99, 132, 0.6)",
-                "rgba(54, 162, 235, 0.6)",
-                "rgba(255, 206, 86, 0.6)",
-                "rgba(75, 192, 192, 0.6)",
-                "rgba(153, 102, 255, 0.6)",
-                "rgba(255, 159, 64, 0.6)",
-                "rgba(255, 99, 132, 0.6)",
+              "#f42f42",
+              "#5ab950",
+              "#fe812a",
+              "#ffc748",
+              "#6b71c7",
+              "#8661d1",
+              "#8a2cba"
               ],
+              borderColor: [
+                "#f42f42",
+                "#5ab950",
+                "#fe812a",
+                "#ffc748",
+                "#6b71c7",
+                "#8661d1",
+                "#8a2cba"
+              ],
+              borderWidth: 2,
             },
+            
           ],
         });
       })
@@ -42,10 +64,11 @@ const UserChart = () => {
         console.log(err);
       });
     console.log(username, calories);
-  };
+  }
+
 
   useEffect(() => {
-    chart();
+    getData();
   }, []);
 
   return (
@@ -55,23 +78,27 @@ const UserChart = () => {
           style={{
             fontSize: "20",
             textAlign: "center",
-            marginTop: "2em",
+            marginTop: "1em",
             marginBottom: "1em",
           }}
         >
-          Calorie Intake per User
+          Calorie per user
         </h5>
-
-        <Pie
+        <Delayed>
+          <Pie
           data={chartData}
           options={{
             title: {
               text: "Calorie per User",
-              fontSize: 20,
+              fontSize: 10,
               fontColor: "#212529",
             },
+          maintainAspectRatio: true,
           }}
         />
+        </Delayed>
+       
+        
       </div>
     </div>
   );

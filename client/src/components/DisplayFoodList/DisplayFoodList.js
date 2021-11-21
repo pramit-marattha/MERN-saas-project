@@ -5,15 +5,11 @@ import axios from "axios";
 import CalorieChart from "../CalorieChart";
 import UserChart from "../UserChart";
 
-const Meal = (props) => (
+const FoodTrack = (props) => (
   <tr>
-    <td>{props.username}</td>
-    <td>{props.description}</td>
-    <td>{props.calories}</td>
-    <td>{props.date.substring(0, 10)}</td>
-    <td>
+  <td>
       <Link to={"/edit/" + props.meal._id} style={{ color: " #a04949" }}>
-        Edit
+    <img src="https://user-images.githubusercontent.com/37651620/142769270-6128d45e-3650-4b66-bc0b-a76e3991fa1f.png" alt="edit" style={{height:"40px"}}/>
       </Link>{" "}
       |{" "}
       <a
@@ -24,9 +20,13 @@ const Meal = (props) => (
         }}
         style={{ color: " #a04949" }}
       >
-        Delete
+       <img src="https://user-images.githubusercontent.com/37651620/142769328-23d55107-8bed-4fa0-92b8-cca7df931083.png" alt="edit" style={{height:"40px"}}/>
       </a>
     </td>
+    <td>{props.meal.username}</td>
+    <td>{props.meal.description}</td>
+    <td>{props.meal.calories}</td>
+    <td>{props.meal.date.substring(0, 10)}</td>
   </tr>
 );
 
@@ -51,50 +51,53 @@ const DisplayFoodList = () => {
     setFoods(foods.filter((el) => el._id !== id));
   }
 
-  // function mealList() {
-  //   return foods.map((currentmeal) => {
-  //     return (
-  //       <Meal
-  //         meal={currentmeal}
-  //         deleteMeal={deleteMeal}
-  //         key={currentmeal._id}
-  //       />
-  //     );
-  //   });
-  // }
+  const mealList = ()=> {
+    return foods.map((currentmeal) => {
+      return (
+        <FoodTrack
+          meal={currentmeal}
+          deleteMeal={deleteMeal}
+          key={currentmeal._id}
+        />
+      );
+    });
+  }
 
+  
   return (
     <>
         <>
-        <div class="container">
-          <div class="card border-0 shadow my-4">
-            <div class="card-body p-5">
+        <div className="container">
+          <div className="card border-0 shadow my-4">
+        
+            <div className="card-body p-5">
               <h3 style={{ textAlign: "center", marginBottom: "15px" }}>
-                Food Tracker
+                Calorie Journal
               </h3>
               <table className="table" style={{ textAlign: "center" }}>
                 <thead
                   className="thead"
-                  style={{ backgroundColor: "rgb(160 73 73 / 68%)" }}
+                  style={{ backgroundColor: "#8661d1" }}
                 >
                   <tr>
-                    <th>Username</th>
-                    <th>Description</th>
-                    <th>Calories</th>
-                    <th>Date</th>
-                    <th>Actions</th>
+                    <th>Edit/Delete</th>
+                    <th>👤 Username</th>
+                    <th>📙 Description</th>
+                    <th>🔥 Calories</th>
+                    <th>📅 Date</th>
+                   
                   </tr>
                 </thead>
-                {/* <tbody>{mealList()}</tbody> */}
+                <tbody>{mealList()}</tbody>
               </table>
             </div>
           </div>
         </div>
-        <div class="container">
-          <div class="card border-0 shadow my-2" style={{ padding: "2rem" }}>
-            <div class="card-body p-1"></div>
+        <div className="container">
+          <div className="card border-0 shadow my-2" style={{ padding: "2rem"}}>
+            <div className="card-body p-1"></div>
+            <UserChart/>
             <CalorieChart/>
-            {/* <UserChart/> */}
           </div>
         </div>
       </>
