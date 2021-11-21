@@ -63,7 +63,6 @@ const DisplayFoodList = () => {
     });
   }
 
-  
   return (
     <>
         <>
