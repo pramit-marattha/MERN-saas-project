@@ -3,10 +3,10 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Navbar from "./components/Navbar";
-import MealsList from "./components/DisplayFoodList";
-import EditMeal from "./components/EditFood";
-import CreateMeal from "./components/AddFood";
-import CreateUser from "./components/AddUser";
+import DisplayFoodList from "./components/DisplayFoodList";
+import EditFood from "./components/EditFood";
+import AddFood from "./components/AddFood";
+import AddUser from "./components/AddUser";
 
 function App() {
   return (
@@ -15,10 +15,10 @@ function App() {
         <Navbar />
         <br />
       <Routes>
-          <Route path="/" exact component={MealsList} />
-          <Route path="/edit/:id" component={EditMeal} />
-          <Route path="/create" component={CreateMeal} />
-          <Route path="/user" component={CreateUser} />
+          <Route path="/" exact element={<DisplayFoodList/>} />
+          <Route path="/edit/:id" element={<EditFood/>} />
+          <Route path="/create" element={<AddFood/>} />
+          <Route path="/user" element={<AddUser/>} />
         </Routes>
       </Router>
     </>

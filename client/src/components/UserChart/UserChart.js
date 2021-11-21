@@ -77,4 +77,4 @@ const UserChart = () => {
   );
 };
 
-export default Chart1;
+export default UserChart;

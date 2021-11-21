@@ -1,30 +1,30 @@
 /** @format */
 
 import React, { useEffect, useState } from "react";
-import { Bar } from "react-chartjs-2";
+import { Bar,Pie } from "react-chartjs-2";
 import axios from "axios";
 
 const CalorieChart = () => {
   const [chartData, setChartData] = useState({});
 
   const chart = () => {
-    let meal = [];
-    let calories = [];
+    let foodCal = [];
+    let caloriesCal = [];
     axios
       .get("http://localhost:5000/calorie/")
       .then((res) => {
         console.log(res);
-        for (const dataObj of res.data) {
-          meal.push(dataObj.description);
-          calories.push(parseInt(dataObj.calories));
-          console.log(meal, calories);
+        for (let dataObj of res.data) {
+          foodCal.push(dataObj.description);
+          caloriesCal.push(parseInt(dataObj.caloriesCal));
+          console.log(foodCal, caloriesCal);
         }
         setChartData({
-          labels: meal,
+          labels: foodCal,
           datasets: [
             {
-              label: "Calories",
-              data: calories,
+              label: "Cal",
+              data: caloriesCal,
               backgroundColor: [
                 "rgba(255, 99, 132, 0.6)",
                 "rgba(54, 162, 235, 0.6)",
@@ -41,7 +41,6 @@ const CalorieChart = () => {
       .catch((err) => {
         console.log(err);
       });
-    console.log(meal, calories);
   };
 
   useEffect(() => {
